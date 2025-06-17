@@ -1,0 +1,14 @@
+[
+    {
+        "title": "687543 / 2025 - Repeated GET request being sent from managed approuter every 5 minutes",
+        "link": "https://me.sap.com/cases/002075129400006875432025/overview",
+        "description": "<ul><li>We observed repeated GET request (uri below) being sent every 5 minutes if the first request was not completed</li><li>Please note from browser trace there was only 1st request being record<li>it appears that managed-approuter is triggering or attempting those reqeusts</li></ul>",
+        "steps": "<ol><li>Login into CF space and execute: (or open BTP cockpit and goto application logs)<pre>cf logs btp-dummy-srv</pre></li><li>Open browser developer tools (F12) network trace</li><li>Click on above Run button and wait for 12 minutes or so</li><li>Observe repeated request in cf logs every 5 minutes although there's only 1 request in browser F12 network trace</li></ol>",
+        "request": {
+            "method": "GET",
+            "url": "/odata/dummy/Message?delay=720000"
+        },
+        "running": false,
+        "response": ""
+    }
+]

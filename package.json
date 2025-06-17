@@ -1,0 +1,72 @@
+{
+	"name": "btp-dummy",
+	"version": "0.0.1",
+	"description": "Dummy app for troubleshooting BTP / CAP / Work-zone issuesP",
+	"workspaces": [
+		"app/incidents"
+	],
+	"dependencies": {
+		"@sap/cds": "^8",
+		"@sap/xssec": "^4.8.0",
+		"express": "^4",
+		"passport": "^0"
+	},
+	"devDependencies": {
+		"@cap-js/sqlite": "^1",
+		"@ui5/cli": "^4",
+		"mbt": "^1",
+		"rimraf": "^6",
+		"ui5-task-zipper": "^3"
+	},
+	"scripts": {
+		"start": "cds-serve",
+		"start:debug": "npx -n=\"--inspect\" cds-serve",
+		"enable-debug": "cf ssh btp-dummy-srv -c 'kill -usr1 $(pgrep node)'",
+		"ssh-remote": "cf ssh -N -L 9229:127.0.0.1:9229 btp-dummy-srv",
+		"clean": "rimraf resources mta_archives mta-op*",
+		"build": "rimraf resources mta_archives && mbt build --mtar btp-dummy",
+		"deploy": "cf deploy mta_archives/btp-dummy.mtar --retries 1",
+		"bd": "mbt build -p=cf --mtar=btp-dummy.mtar && cf deploy mta_archives/btp-dummy.mtar -f --retries 1",
+		"undeploy": "cf undeploy btp-dummy --delete-services --delete-service-keys --delete-service-brokers",
+		"gen-env": "export CF_APP_NAME=btp-dummy-srv && curl https://raw.githubusercontent.com/sap-pilot/btp-util/main/cf/gen-default-env.js | node"
+	},
+	"cds": {
+		"features": {
+			"fetch_csrf": true
+		},
+		"requires": {
+			"auth": {
+				"kind": "mocked",
+				"users": {
+					"admin": {
+						"password": "admin",
+						"roles": [
+							"admin"
+						],
+						"attr": {
+							"logonName": "btp-dummy@sapux.org",
+							"givenName": "Dummy",
+							"familyName": "BTP",
+							"email": "btp-dummy@sapux.org"
+						}
+					}
+				},
+				"[production]": {
+					"kind": "xsuaa",
+					"passport": {
+						"strategy": "xsuaa"
+					}
+				}
+			}
+		},
+		"log": {
+			"levels": {
+				"cds": "info",
+				"btp-dummy": "debug"
+			}
+		},
+		"odata": {
+			"version": "v4"
+		}
+	}
+}

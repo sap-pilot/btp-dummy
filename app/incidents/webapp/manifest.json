@@ -1,0 +1,75 @@
+{
+    "sap.cloud": {
+        "public": true,
+        "service": "btp.dummy"
+    },
+    "sap.app": {
+        "id": "btp.dummy.incidents",
+        "type": "application",
+        "applicationVersion": {
+            "version": "1.0.0"
+        },
+        "title": "BTP Incidents",
+        "description": "BTP Dummy App for troubleshooting BTP/Workzone incidents",
+        "dataSources": {
+            "mainService": {
+                "uri": "odata/btp-dummy/",
+                "type": "OData",
+                "settings": {
+                    "annotations": [],
+                    "localUri": "localService/metadata.xml",
+                    "odataVersion": "4.0"
+                }
+            }
+        },
+        "crossNavigation": {
+            "inbounds": {
+                "btp-dummy-incidents-inbound": {
+                    "signature": {
+                        "parameters": {},
+                        "additionalParameters": "allowed"
+                    },
+                    "semanticObject": "BTPDummy",
+                    "action": "incidents",
+                    "title": "BTP Incidents",
+                    "subTitle": "Troubleshooing",
+                    "icon": "sap-icon://marketing-campaign"
+                }
+            }
+        }
+    },
+    "sap.ui5": {
+        "rootView": {
+            "viewName": "btp.dummy.incidents.Main",
+            "type": "XML",
+            "async": true
+        },
+        "dependencies": {
+            "libs": {
+                "sap.ui.core": {},
+                "sap.ui.layout": {}
+            }
+        },
+        "models": {
+            "" : {
+                "dataSource": "mainService",
+                "preload" : true,
+                "settings": {
+                    "synchronizationMode" : "None",
+                    "groupId": "$direct"
+                }
+            }  
+        },
+        "config": {
+            "sample": {
+                "stretch": true,
+                "files": [
+                    "Main.view.xml",
+                    "Main.controller.js",
+                    "Incidents.json",
+                    "manifest.json"
+                ]
+            }
+        }
+    }
+}

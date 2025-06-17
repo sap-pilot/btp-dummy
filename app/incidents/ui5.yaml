@@ -1,0 +1,11 @@
+specVersion: "4.0"
+metadata:
+  name: btp-dummy-incidents
+type: application
+framework:
+  name: SAPUI5
+  version: "1.132.0"
+  libraries:
+    - name: themelib_sap_horizon
+    - name: sap.ui.core
+    - name: sap.ui.layout

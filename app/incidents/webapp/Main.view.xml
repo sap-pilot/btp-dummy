@@ -1,0 +1,62 @@
+<mvc:View
+	controllerName="btp.dummy.incidents.Main"
+	xmlns:l="sap.ui.layout"
+	xmlns:core="sap.ui.core"
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns:template="http://schemas.sap.com/sapui5/extension/sap.ui.core.template/1"
+	xmlns="sap.m">
+	<VBox items="{incidents>/}">
+		<Panel expandable="true" width="auto" class="sapUiResponsiveMargin sapUiNoMarginBottom">
+			<headerToolbar>
+				<OverflowToolbar style="Clear">
+					<Title level="H3">
+						<Link text="{incidents>title}" href="{incidents>link}" emphasized="true" target="_blank" />
+					</Title>
+					<ToolbarSpacer />
+					<Button 
+						enabled="{=!%{incidents>running}}"
+						icon="{= %{incidents>running} ? 'sap-icon://lateness' : 'sap-icon://media-play'}" 
+						text="{= %{incidents>running} ? 'Running' : 'Run'}" 
+						press="onRunIncident"/>
+				</OverflowToolbar>
+			</headerToolbar>
+			<content>
+				<FormattedText htmlText="&lt;h5&gt;Description&lt;/h5&gt;"/>
+				<FormattedText htmlText="{incidents>description}"/>
+				<FormattedText htmlText="&lt;h5&gt;Steps to reproduce&lt;/h5&gt;"/>
+				<FormattedText htmlText="{incidents>steps}"/>
+				<FormattedText htmlText="&lt;h5&gt;Request&lt;/h5&gt;"/>
+				<FormattedText htmlText="&lt;pre&gt;{= JSON.stringify(%{incidents>request},null,2)}&lt;/pre&gt;"/>
+				<FormattedText htmlText="&lt;h5&gt;Response&lt;/h5&gt;"/>
+				<FormattedText htmlText="&lt;pre&gt;{= JSON.stringify(%{incidents>response},null,2)}&lt;/pre&gt;"/>
+			</content>
+		</Panel>
+	</VBox>
+<!-- 	
+	<Panel expandable="true" width="auto" class="sapUiResponsiveMargin">
+		<headerToolbar>
+			<OverflowToolbar style="Clear">
+				<Title text="Custom Toolbar with a header text" />
+				<ToolbarSpacer />
+				<Button icon="sap-icon://settings" />
+				<Button icon="sap-icon://drop-down-list" />
+			</OverflowToolbar>
+		</headerToolbar>
+		<content>
+			<Text text="Lorem ipsum dolor st amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat" />
+		</content>
+	</Panel>
+	<Panel id="expandablePanel" expandable="true" width="auto" class="sapUiResponsiveMargin">
+		<headerToolbar>
+			<OverflowToolbar active="true" press="onOverflowToolbarPress">
+				<Title text="Clickable Custom Toolbar with a header text" />
+				<ToolbarSpacer />
+				<Button icon="sap-icon://settings" />
+				<Button icon="sap-icon://drop-down-list" />
+			</OverflowToolbar>
+		</headerToolbar>
+		<content>
+			<Text text="Lorem ipsum dolor st amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat" />
+		</content>
+	</Panel> -->
+</mvc:View>
