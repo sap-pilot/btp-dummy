@@ -1,0 +1,137 @@
+[
+    {
+        "_version": "3.0",
+        "identification": {
+            "id": "BTP_DUMMY_ROLE",
+            "title": "{{title}}",
+            "entityType": "role"
+        },
+        "payload": {
+            "catalogs": [
+                {
+                    "id": "BTP_DUMMY_CATALOG"
+                }
+            ],
+            "spaces": [
+                {
+                    "id": "BTP_DUMMY_SPACE"
+                }
+            ],
+            "apps": [
+                {
+                    "id": "btp.dummy.incidents"
+                }
+            ]
+        },
+        "texts": [
+            {
+                "locale": "en",
+                "textDictionary": {
+                    "title": "Dummy role for incidents troubleshooting"
+                }
+            },
+            {
+                "locale": "",
+                "textDictionary": {
+                    "title": "Dummy role for incidents troubleshooting"
+                }
+            }
+        ]
+    },
+    {
+        "_version": "3.0",
+        "identification": {
+            "id": "BTP_DUMMY_CATALOG",
+            "title": "{{title}}",
+            "entityType": "catalog"
+        },
+        "payload": {
+            "viz": [
+                {
+                    "appId": "btp.dummy.incidents",
+                    "vizId": "btp-dummy-incidents-inbound"
+                }
+            ]
+        },
+        "texts": [
+            {
+                "locale": "en",
+                "textDictionary": {
+                    "title": "Dummy Catalog"
+                }
+            },
+            {
+                "locale": "",
+                "textDictionary": {
+                    "title": "Dummy Catalog"
+                }
+            }
+        ]
+    },
+    {
+        "_version": "3.1.0",
+        "identification": {
+            "id": "BTP_DUMMY_SPACE",
+            "title": "{{title}}",
+            "description": "{{description}}",
+            "entityType": "space"
+        },
+        "payload": {
+            "contentNodes": [
+                {
+                    "type": "page",
+                    "id": "BTP_DUMMY_PAGE"
+                }
+            ]
+        },
+        "texts": [
+            {
+                "locale": "en",
+                "textDictionary": {
+                    "title": "Dummy",
+                    "description": "Dummy space for incidents troubleshooting"
+                }
+            },
+            {
+                "locale": "",
+                "textDictionary": {
+                    "title": "Dummy",
+                    "description": "Dummy space for incidents troubleshooting"
+                }
+            }
+        ]
+    },
+    {
+        "_version": "3.1.0",
+        "identification": {
+            "id": "BTP_DUMMY_PAGE",
+            "title": "{{title}}",
+            "description": "{{description}}",
+            "entityType": "page"
+        },
+        "payload": {
+            "sections": [
+                {
+                    "id": "BTP_DUMMY_SECTION",
+                    "title": "{{section.title}}",
+                    "viz": [
+                        {
+                            "appId": "btp.dummy.incidents",
+                            "vizId": "btp-dummy-incidents-inbound"
+                        }
+                    ]
+                }
+            ]
+        },
+        "texts": [
+            {
+                "locale": "en",
+                "textDictionary": {
+                    "title": "Dummy Page",
+                    "description": "Dummy page for incidents troubleshooting",
+                    "section.title": "Dummy apps for incidents troubleshooting"
+                }
+            }
+        ]
+    }
+]
