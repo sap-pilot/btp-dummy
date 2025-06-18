@@ -27,16 +27,29 @@ sap.ui.define([
 				headers: oSourceObj.request.headers || {},
 				processData: false,
 				context: this,
-				success: function (data) {
-					this._incidentsModel.setProperty(`/${iIndex}/response`, data);
+				success: function (data, textStatus, jqXHR) {
+					let oHeaders = this.parseHeader(jqXHR.getAllResponseHeaders());
+					let sStatusLine = `${jqXHR.status} ${jqXHR.statusText}`;
+					this._incidentsModel.setProperty(`/${iIndex}/response`, {"status": sStatusLine, "headers": oHeaders, "body": data});
 				},
 				error: function (jqXHR, textStatus, errorThrown) {
-					this._incidentsModel.setProperty(`/${iIndex}/response`,{"error": errorThrown, "responseText":jqXHR.responseText});
+					let oHeaders = this.parseHeader(jqXHR.getAllResponseHeaders());
+					let sStatusLine = `${jqXHR.status} ${jqXHR.statusText}`;
+					this._incidentsModel.setProperty(`/${iIndex}/response`,{"error": errorThrown, "status": sStatusLine, "headers": oHeaders, "body":jqXHR.responseText});
 				},
 				complete: function(e) {
 					this._incidentsModel.setProperty(`/${iIndex}/running`, false);
 				}
 			});
+		},
+		parseHeader: function(headerLines) {
+			let oHeaders = {};
+			headerLines.split("\r\n").map(((line)=>{ 
+				let kv = line.split(":"); 
+				let k = kv[0];
+				if (k) oHeaders[k] = (kv[1]||"").trim(); 
+			}));
+			return oHeaders;
 		}
 	});
 });
