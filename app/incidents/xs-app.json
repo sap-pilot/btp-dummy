@@ -9,6 +9,13 @@
             "csrfProtection": false
         },
         {
+            "source": "^/ads/(.*)$",
+            "target": "/$1",
+            "destination": "BTP_ADS",
+            "authenticationType": "xsuaa",
+            "csrfProtection": false
+        },
+        {
             "source": "^/resources/(.*)$",
             "target": "/resources/$1",
             "destination": "ui5"

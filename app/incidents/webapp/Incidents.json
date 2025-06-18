@@ -2,11 +2,23 @@
     {
         "title": "687543 / 2025 - Repeated GET request being sent from managed approuter every 5 minutes",
         "link": "https://me.sap.com/cases/002075129400006875432025/overview",
-        "description": "<ul><li>We observed repeated GET request (uri below) being sent every 5 minutes if the first request was not completed</li><li>Please note from browser trace there was only 1st request being record<li>it appears that managed-approuter is triggering or attempting those reqeusts</li></ul>",
-        "steps": "<ol><li>Login into CF space and execute: (or open BTP cockpit and goto application logs)<pre>cf logs btp-dummy-srv</pre></li><li>Open browser developer tools (F12) network trace</li><li>Click on above Run button and wait for 12 minutes or so</li><li>Observe repeated request in cf logs every 5 minutes although there's only 1 request in browser F12 network trace</li></ol>",
+        "description": "<ul><li>We observed repeated GET request (uri below) being sent into CAP app (nodejs) every 5-10 minutes if the first request was not completed</li><li>Please note from browser trace there was only 1st request being record<li>It appears that managed-approuter was triggering or repeating those reqeusts</li></ul>",
+        "steps": "<ol><li>Login into CF space and execute: (or open BTP cockpit and goto application logs)<pre>cf logs btp-dummy-srv</pre></li><li>Open browser developer tools (F12) network trace</li><li>Click on above Run button and wait for 12 minutes or so</li><li>Observe repeated request in cf logs every 5-10 minutes although there's only 1 request recorded in browser F12 network trace</li></ol>",
         "request": {
             "method": "GET",
             "url": "/odata/dummy/Message?delay=720000"
+        },
+        "running": false,
+        "response": ""
+    },
+    {
+        "title": "423216 / 2025 - Managed approuter getting 401 error when calling Forms by Adobe destination",
+        "link": "https://me.sap.com/cases/002075129400004232162025/overview",
+        "description": "<ul><li>We are getting 401 unauthorized error when calling Forms by Adobe service destination (BTP_ADS) from apps deployed in Managed Approuter.</li><li>The same BTP_ADS destination works for CAP apps deployed in the same subaccount.</li><li>The clientid/secret also works when we tested it via POSTMAN</li></ul>",
+        "steps": "<ol><li>Open browser developer tools (F12) network trace</li><li>Click on above Run button to trigger request through managed-approuter - >BTP_ADS</li><li>Observe 401 error in response</li></ol>",
+        "request": {
+            "method": "GET",
+            "url": "/ads/v1/forms?select=formData,templateData,templateMetaData"
         },
         "running": false,
         "response": ""
