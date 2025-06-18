@@ -47,7 +47,9 @@
         "dependencies": {
             "libs": {
                 "sap.ui.core": {},
-                "sap.ui.layout": {}
+                "sap.ui.layout": {},
+                "sap.tnt": {},
+                "sap.m": {}
             }
         },
         "models": {
@@ -66,7 +68,7 @@
                 "files": [
                     "Main.view.xml",
                     "Main.controller.js",
-                    "Incidents.json",
+                    "cases.json",
                     "manifest.json"
                 ]
             }
