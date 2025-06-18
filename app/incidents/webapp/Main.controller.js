@@ -1,10 +1,10 @@
 sap.ui.define([
 	'sap/ui/core/mvc/Controller'
-], function (Controller) {
+], function (Controller, Incidents) {
 	"use strict";
 	return Controller.extend("btp.dummy.incidents.Main", {
 		onInit: function (oEvent) {
-			this._incidentsModel = new sap.ui.model.json.JSONModel('Incidents.json');
+			this._incidentsModel = new sap.ui.model.json.JSONModel(sap.ui.require.toUrl("btp/dummy/incidents")+'/Incidents.json');
 			this.getView().setModel(this._incidentsModel, "incidents");
 		},
 		onRunIncident: function (oEvent) {
@@ -19,8 +19,10 @@ sap.ui.define([
 			console.log(oSourceObj.request);
 			// Update the status of the incident to 'Running'
 			this._incidentsModel.setProperty(`/${iIndex}/running`, true);
+			const sComponentUrl = sap.ui.require.toUrl("btp/dummy/incidents");
+			const sRequestUrl = (window.location.hostname == 'localhost')? oSourceObj.request.url : sComponentUrl + oSourceObj.request.url;  // change to component path for Workzone deployment
 			$.ajax({
-				url: window.location.hostname == 'localhost'? oSourceObj.request.url : oSourceObj.request.url.slice(1), // remove absolute path for Workzone deployment
+				url: sRequestUrl,
 				type: oSourceObj.request.method,
 				contentType: 'application/json',
 				data: oSourceObj.request.method === "POST" && oSourceObj.request.data? JSON.stringify(oSourceObj.request.data) : null,

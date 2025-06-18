@@ -30,6 +30,10 @@ modules:
     parameters:
       service-key:
         name: btp-dummy-html_repo_host-key
+  - name: btp-dummy-repo-runtime
+    parameters:
+      service-key:
+        name: btp-dummy-repo-runtime-key
   - name: btp-dummy-destination
     parameters:
       content-target: true
@@ -46,6 +50,13 @@ modules:
           ServiceInstanceName: btp-dummy-uaa
           ServiceKeyName: btp-dummy-uaa-key
           sap.cloud.service: btp.dummy
+        existing_destinations_policy: update
+      subaccount:
+        destinations:
+          - Name: btp-dummy-cdm-dt
+            ServiceInstanceName: btp-dummy-repo-runtime
+            ServiceKeyName: btp-dummy-repo-runtime-key
+            URL: https://html5-apps-repo-rt.${default-domain}/applications/cdm/btp.dummy
         existing_destinations_policy: update
   build-parameters:
     no-source: true
@@ -95,7 +106,7 @@ resources:
           existing_destinations_policy: update
           destinations:
             - Name: btp-dummy-srv
-              Description: BTP Banner service
+              Description: BTP Dummy service
               Authentication: NoAuthentication
               ProxyType: Internet
               Type: HTTP
@@ -103,6 +114,15 @@ resources:
               HTML5.DynamicDestination: true
               HTML5.ForwardAuthToken: true
               HTML5.Timeout: 600000
+        subaccount:
+          existing_destinations_policy: ignore
+          destinations:
+            - Name: btp-dummy-cdm-rt
+              Authentication: NoAuthentication
+              ProxyType: Internet
+              Type: HTTP
+              URL: https://{subdomain}.launchpad.${default-domain}
+              CEP.HTML5contentprovider: true
 
 - name: btp-dummy-html_repo_host
   type: org.cloudfoundry.managed-service
@@ -110,6 +130,13 @@ resources:
     service: html5-apps-repo
     service-name: btp-dummy-html_repo_host
     service-plan: app-host
+
+- name: btp-dummy-repo-runtime
+  type: org.cloudfoundry.managed-service
+  parameters:
+    service: html5-apps-repo
+    service-name: btp-dummy-repo-runtime
+    service-plan: app-runtime
 
 - name: btp-dummy-uaa
   type: org.cloudfoundry.managed-service
@@ -124,3 +151,7 @@ build-parameters:
     commands:
     # - npm ci # run npm ci after checking out repo or npm install after updating package.json, instead of during build
     - npx -p @sap/cds-dk cds build --production
+    - mkdir -p resources
+    # "HTML5 business solution" deployment, see: 
+    # https://help.sap.com/docs/build-work-zone-standard-edition/sap-build-work-zone-standard-edition/developing-html5-apps-for-cross-subaccount-consumption
+    - cp workzone/cdm.json resources/cdm.json
