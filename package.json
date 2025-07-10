@@ -50,12 +50,6 @@
 							"email": "btp-dummy@sapux.org"
 						}
 					}
-				},
-				"[production]": {
-					"kind": "xsuaa",
-					"passport": {
-						"strategy": "xsuaa"
-					}
 				}
 			}
 		},
