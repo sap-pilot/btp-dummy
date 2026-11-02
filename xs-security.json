@@ -1,7 +1,7 @@
 {
     "xsappname": "btp-dummy",
     "tenant-mode": "dedicated",
-    "description": "BTP Banner display and administration",
+    "description": "BTP dummy app for testing and troubleshooting issues",
     "scopes": [
         {
             "name": "uaa.user",
@@ -10,6 +10,13 @@
         {
             "name": "$XSAPPNAME.admin",
             "description": "BTP Dummy Admin"
+        }
+    ],
+    "attributes": [
+        {
+            "name": "BusinessUnits",
+            "description": "Authorized Business Units",
+            "valueType": "string"
         }
     ],
     "role-templates": [
@@ -25,6 +32,11 @@
             "description": "BTP Dummy Admin",
             "scope-references": [
                 "$XSAPPNAME.admin"
+            ],
+            "attribute-references": [
+                {
+                    "name": "BusinessUnits"
+                }
             ]
         }
     ],
